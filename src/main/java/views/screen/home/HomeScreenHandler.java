@@ -88,6 +88,11 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer {
         return this.numMediaInCart;
     }
 
+//    @Override
+//    public void setScreenTitle() {
+//        this.stage.setTitle("Home");
+//    }
+
     public HomeController getBController() {
         return (HomeController) super.getBController();
     }
@@ -147,6 +152,21 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer {
         numMediaInCart.setText(String.valueOf(SessionInformation.cartInstance.getListMedia().size()) + " media");
         super.show();
     }
+
+    /**
+     * Update Template method
+     *
+     *     @Override
+     *     public void initScreenTitle() {
+     *         setScreenTitle("Home");
+     *     }
+     *
+     *     @Override
+     *     public void initController() {
+     *         setBController(new HomeController());
+     *     }
+     *
+     */
 
     public void setImage() {
         // fix image path caused by fxml

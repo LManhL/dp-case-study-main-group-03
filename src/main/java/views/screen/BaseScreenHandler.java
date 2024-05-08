@@ -39,7 +39,19 @@ public abstract class BaseScreenHandler extends FXMLScreenHandler {
 		return this.prev;
 	}
 
+	/**
+	 * Update Template method
+	 */
 	public void show() {
+		// initScreenTitle()
+		// initController()
+		initScene();
+	}
+
+	/**
+	 * Update Template method
+	 */
+	public void initScene(){
 		if (this.scene == null) {
 			this.scene = new Scene(this.content);
 		}
@@ -50,6 +62,13 @@ public abstract class BaseScreenHandler extends FXMLScreenHandler {
 	public void setScreenTitle(String string) {
 		this.stage.setTitle(string);
 	}
+
+	/** Update Template method
+	 *
+	 * 	public abstract void initScreenTitle();
+	 * 	public abstract void initController();
+	 *
+	 */
 
 	public void setBController(BaseController bController){
 		this.bController = bController;
