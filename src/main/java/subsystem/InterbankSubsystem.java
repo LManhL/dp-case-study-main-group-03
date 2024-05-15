@@ -11,11 +11,22 @@ import subsystem.interbank.InterbankSubsystemController;
  * @author hieud
  *
  */
+
+/**
+ * InterbankSubsystem được thiết kế là Object Adapter
+ * InterbankInterface là Client interface
+ */
 public class InterbankSubsystem implements InterbankInterface {
 
 	/**
 	 * Represent the controller of the subsystem
 	 */
+
+	 /**
+	 * Biến ctrl là adaptee
+	 * InterbankSubsystemController là Service
+	 */
+
 	private InterbankSubsystemController ctrl;
 
 	/**
@@ -30,7 +41,9 @@ public class InterbankSubsystem implements InterbankInterface {
 	 * @see InterbankInterface#payOrder(CreditCard, int,
 	 *      String)
 	 */
+	@Override
 	public PaymentTransaction payOrder(CreditCard card, int amount, String contents) {
+		// Thực hiện lời gọi tương ứng đến Service
 		PaymentTransaction transaction = ctrl.payOrder(card, amount, contents);
 		return transaction;
 	}
@@ -39,7 +52,9 @@ public class InterbankSubsystem implements InterbankInterface {
 	 * @see InterbankInterface#refund(CreditCard, int,
 	 *      String)
 	 */
+	@Override
 	public PaymentTransaction refund(CreditCard card, int amount, String contents) {
+		// Thực hiện lời gọi tương ứng đến Service
 		PaymentTransaction transaction = ctrl.refund(card, amount, contents);
 		return transaction;
 	}

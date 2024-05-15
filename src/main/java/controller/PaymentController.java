@@ -91,7 +91,7 @@ public class PaymentController extends BaseController {
 					cardHolderName,
 					getExpirationDate(expirationDate),
 					Integer.parseInt(securityCode));
-
+			// Sử dụng Adapter
 			this.interbank = new InterbankSubsystem();
 			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
 

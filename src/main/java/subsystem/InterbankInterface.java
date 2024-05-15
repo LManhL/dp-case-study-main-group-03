@@ -12,6 +12,10 @@ import entity.payment.PaymentTransaction;
  * @author hieud
  * 
  */
+
+/**
+ *  InterbankInterface là Client Interface
+ */
 public interface InterbankInterface {
 
 	/**
