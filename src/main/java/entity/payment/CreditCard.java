@@ -3,11 +3,9 @@ package entity.payment;
 /**
  * @author
  */
-public class CreditCard {
+// Concrete Product
+public class CreditCard extends Card {
 
-    private String cardCode;
-    private String owner;
-    private String dateExpired;
     protected int cvvCode;
 
     public CreditCard(String cardCode, String owner, String dateExpired, int cvvCode) {
@@ -15,5 +13,6 @@ public class CreditCard {
         this.owner = owner;
         this.dateExpired = dateExpired;
         this.cvvCode = cvvCode;
+        this.type = CardType.CREDIT_CARD;
     }
 }

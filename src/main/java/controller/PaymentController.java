@@ -9,6 +9,8 @@ import common.exception.PaymentException;
 import common.exception.UnrecognizedException;
 import entity.cart.Cart;
 import entity.payment.CreditCard;
+import entity.payment.CreditCardCreator;
+import entity.payment.DomesticCardCreator;
 import entity.payment.PaymentTransaction;
 import subsystem.InterbankInterface;
 import subsystem.InterbankSubsystem;
@@ -93,8 +95,7 @@ public class PaymentController extends BaseController {
 					Integer.parseInt(securityCode));
 
 			this.interbank = new InterbankSubsystem();
-			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
-
+			PaymentTransaction transaction = interbank.payOrder(new CreditCardCreator("0123456789","22/5/2024","XYZ",123), amount, contents);
 			result.put("RESULT", "PAYMENT SUCCESSFUL!");
 			result.put("MESSAGE", "You have successfully paid the order!");
 		} catch (PaymentException | UnrecognizedException ex) {
