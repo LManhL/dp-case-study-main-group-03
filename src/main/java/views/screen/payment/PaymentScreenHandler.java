@@ -77,7 +77,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 		String contents = "pay order";
 		PaymentController ctrl = (PaymentController) getBController();
 		Map<String, String> response = ctrl.payOrder(invoice.getAmount(), contents, cardNumber.getText(), holderName.getText(),
-				expirationDate.getText(), securityCode.getText());
+				expirationDate.getText(), securityCode.getText(),"domestic");
 
 		BaseScreenHandler resultScreen = new ResultScreenHandler(this.stage, ViewsConfig.RESULT_SCREEN_PATH, response);
 		resultScreen.setPreviousScreen(this);
