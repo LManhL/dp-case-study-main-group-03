@@ -31,6 +31,7 @@ public class PaymentController extends BaseController {
      * Represent the Interbank subsystem
      */
     private InterbankInterface interbank;
+    private CardCreator cardCreator;
 
     /**
      * Validate the input date which should be in the format "mm/yy", and then
@@ -80,19 +81,12 @@ public class PaymentController extends BaseController {
      * @return {@link Map Map} represent the payment result with a
      * message.
      */
-    public Map<String, String> payOrder(int amount, String contents, String cardNumber, String cardHolderName,
-                                        String expirationDate, String securityCode, String cardType) {
+    public Map<String, String> payOrder(int amount, String contents, CardCreator cardCreator) {
         Map<String, String> result = new Hashtable<String, String>();
         result.put("RESULT", "PAYMENT FAILED!");
         try {
             this.interbank = new InterbankSubsystem();
-			CardCreator cardCreator = null;
-			if(Objects.equals(cardType, "domestic")){
-				cardCreator = new DomesticCardCreator(cardNumber, expirationDate, cardHolderName, "AGRIBANK");
-			}
-			else{
-				cardCreator = new CreditCardCreator(cardNumber, expirationDate, cardHolderName, Integer.parseInt(securityCode));
-			}
+            this.cardCreator = cardCreator;
 			PaymentTransaction transaction1 = interbank.payOrder(cardCreator.createCard(), amount, contents);
             result.put("RESULT", "PAYMENT SUCCESSFUL!");
             result.put("MESSAGE", "You have successfully paid the order!");
