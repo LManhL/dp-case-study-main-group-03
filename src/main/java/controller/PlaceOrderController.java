@@ -7,6 +7,7 @@ import entity.invoice.Invoice;
 import entity.order.Order;
 import entity.order.OrderItem;
 import entity.shipping.DeliveryInfo;
+import entity.shipping.NewShippingFee;
 import entity.shipping.ShippingConfigs;
 import org.example.DistanceCalculator;
 
@@ -71,6 +72,7 @@ public class PlaceOrderController extends BaseController {
                 String.valueOf(info.get("address")),
                 String.valueOf(info.get("instructions")),
                 new DistanceCalculator());
+        deliveryInfo.setShippingFeeStrategy(new NewShippingFee());
         System.out.println(deliveryInfo.getProvince());
         return deliveryInfo;
     }

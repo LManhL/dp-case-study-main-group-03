@@ -3,6 +3,7 @@ package entity.shipping;
 import entity.order.Order;
 import org.example.DistanceCalculator;
 
+// Context
 public class DeliveryInfo {
 
     protected String name;
@@ -10,6 +11,7 @@ public class DeliveryInfo {
     protected String province;
     protected String address;
     protected String shippingInstructions;
+    protected ShippingFeeStrategy shippingFeeStrategy;
     protected DistanceCalculator distanceCalculator;
 
     public DeliveryInfo(String name, String phone, String province, String address, String shippingInstructions, DistanceCalculator distanceCalculator) {
@@ -23,7 +25,7 @@ public class DeliveryInfo {
 
     public int calculateShippingFee(Order order) {
         int distance = distanceCalculator.calculateDistance(address, province);
-        return (int) (distance * 1.2);
+        return shippingFeeStrategy.calculate(order, distance);
     }
 
     public String getName() {
@@ -44,5 +46,9 @@ public class DeliveryInfo {
 
     public String getShippingInstructions() {
         return shippingInstructions;
+    }
+
+    public void setShippingFeeStrategy(ShippingFeeStrategy shippingFeeStrategy){
+        this.shippingFeeStrategy = shippingFeeStrategy;
     }
 }
