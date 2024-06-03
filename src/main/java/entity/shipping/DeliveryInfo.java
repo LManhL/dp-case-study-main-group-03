@@ -11,6 +11,7 @@ public class DeliveryInfo {
     protected String address;
     protected String shippingInstructions;
     protected DistanceCalculator distanceCalculator;
+    protected ShippingStrategy shippingStrategy;
 
     public DeliveryInfo(String name, String phone, String province, String address, String shippingInstructions, DistanceCalculator distanceCalculator) {
         this.name = name;
@@ -21,9 +22,17 @@ public class DeliveryInfo {
         this.distanceCalculator = distanceCalculator;
     }
 
-    public int calculateShippingFee(Order order) {
+    public void setShippingStrategy(ShippingStrategy shippingStrategy) {
+        this.shippingStrategy = shippingStrategy;
+    }
+
+    public void setDistanceCalculator(DistanceCalculator distanceCalculator) {
+        this.distanceCalculator = distanceCalculator;
+    }
+
+    public int calculateShippingFee() {
         int distance = distanceCalculator.calculateDistance(address, province);
-        return (int) (distance * 1.2);
+        return shippingStrategy.calculate(distance);
     }
 
     public String getName() {
