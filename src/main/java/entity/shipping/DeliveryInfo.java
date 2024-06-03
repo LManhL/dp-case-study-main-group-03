@@ -23,9 +23,9 @@ public class DeliveryInfo {
         this.distanceCalculator = distanceCalculator;
     }
 
-    public int calculateShippingFee(Order order) {
+    public int calculateShippingFee() {
         int distance = distanceCalculator.calculateDistance(address, province);
-        return shippingFeeStrategy.calculate(order, distance);
+        return shippingFeeStrategy.calculate(distance);
     }
 
     public String getName() {
