@@ -3,17 +3,14 @@ package entity.payment;
 /**
  * @author
  */
-public class CreditCard {
+public class CreditCard extends Card {
 
-    private String cardCode;
-    private String owner;
-    private String dateExpired;
+
     protected int cvvCode;
 
     public CreditCard(String cardCode, String owner, String dateExpired, int cvvCode) {
-        this.cardCode = cardCode;
-        this.owner = owner;
-        this.dateExpired = dateExpired;
+        super(cardCode, owner, dateExpired);
         this.cvvCode = cvvCode;
+        this.type = CardType.CreditCard;
     }
 }
