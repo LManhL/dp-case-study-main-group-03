@@ -22,4 +22,8 @@ public class PaymentTransaction {
 	public String getErrorCode() {
 		return errorCode;
 	}
+
+	public Card getCard() {
+		return card;
+	}
 }

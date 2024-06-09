@@ -7,6 +7,6 @@ public class DomesticCard extends Card{
     public DomesticCard(String cardCode, String owner, String dateExpired, String issuingBank){
         super(cardCode, owner, dateExpired);
         this.issuingBank = issuingBank;
-        this.type = CardType.DomesticCard;
+        this.type = "DomesticCard";
     }
 }

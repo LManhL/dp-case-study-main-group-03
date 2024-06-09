@@ -3,6 +3,7 @@ package controller;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import common.exception.InvalidCardException;
 import common.exception.PaymentException;
@@ -13,6 +14,8 @@ import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 import subsystem.InterbankInterface;
 import subsystem.InterbankSubsystem;
+import utils.Utils;
+import views.screen.cart.CartScreenHandler;
 
 
 /**
@@ -23,6 +26,9 @@ import subsystem.InterbankSubsystem;
  *
  */
 public class PaymentController extends BaseController {
+
+	private static Logger LOGGER = Utils.getLogger(PaymentController.class.getName());
+
 
 	/**
 	 * Represent the card used for payment
@@ -38,14 +44,14 @@ public class PaymentController extends BaseController {
 	 * Validate the input date which should be in the format "mm/yy", and then
 	 * return a {@link String String} representing the date in the
 	 * required format "mmyy" .
-	 * 
+	 *
 	 * @param date - the {@link String String} represents the input date
 	 * @return {@link String String} - date representation of the required
 	 *         format
 	 * @throws InvalidCardException - if the string does not represent a valid date
 	 *                              in the expected format
 	 */
-	private String getExpirationDate(String date) throws InvalidCardException {
+	public String getExpirationDate(String date) throws InvalidCardException {
 		String[] strs = date.split("/");
 		if (strs.length != 2) {
 			throw new InvalidCardException();
@@ -82,17 +88,10 @@ public class PaymentController extends BaseController {
 	 * @return {@link Map Map} represent the payment result with a
 	 *         message.
 	 */
-	public Map<String, String> payOrder(int amount, String contents, String cardNumber, String cardHolderName,
-			String expirationDate, String securityCode) {
+	public Map<String, String> payOrder(int amount, String contents, Card card) {
 		Map<String, String> result = new Hashtable<String, String>();
 		result.put("RESULT", "PAYMENT FAILED!");
 		try {
-			this.card = new CreditCard(
-					cardNumber,
-					cardHolderName,
-					getExpirationDate(expirationDate),
-					Integer.parseInt(securityCode));
-
 			this.interbank = new InterbankSubsystem();
 			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
 
