@@ -111,3 +111,4 @@ CREATE TABLE "aims"."Card"(
 );
 CREATE INDEX "aims"."Card.fk_card_user_idx" ON "Card" ("userID");
 COMMIT;
+
