@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import common.exception.MediaNotAvailableException;
+import common.interfaces.ClickHandler;
 import common.interfaces.Observable;
 import common.interfaces.Observer;
 import entity.cart.Cart;
@@ -48,6 +49,7 @@ public class MediaHandler extends FXMLScreenHandler implements Observable {
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
     private Media media;
     private List<Observer> observerList;
+    private ClickHandler clickHandler;
 
     public MediaHandler(String screenPath, Media media) throws SQLException, IOException{
         super(screenPath);

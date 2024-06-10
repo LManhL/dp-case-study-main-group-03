@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import common.exception.MediaNotAvailableException;
 import common.exception.ViewCartException;
+import common.interfaces.ClickHandler;
 import common.interfaces.Observable;
 import common.interfaces.Observer;
 import controller.*;
@@ -36,7 +37,7 @@ import views.screen.cart.CartScreenHandler;
 import views.screen.popup.PopupScreen;
 
 
-public class HomeScreenHandler extends BaseScreenHandler implements Observer {
+public class HomeScreenHandler extends BaseScreenHandler implements Observer, ClickHandler {
 
     public static Logger LOGGER = Utils.getLogger(HomeScreenHandler.class.getName());
 
@@ -264,5 +265,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void addToCart(Media media) {
+
     }
 }
