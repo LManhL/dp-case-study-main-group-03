@@ -1,5 +1,6 @@
 package entity.shipping;
 
+import org.example.AlternativeDistanceCalculator;
 import org.example.DistanceCalculator;
 
 public class DistanceCalculatorAdapter extends DistanceCalculator {

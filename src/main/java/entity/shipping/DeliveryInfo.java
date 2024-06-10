@@ -1,6 +1,7 @@
 package entity.shipping;
 
 import entity.order.Order;
+import org.example.AlternativeDistanceCalculator;
 import org.example.DistanceCalculator;
 
 public class DeliveryInfo {
@@ -12,6 +13,7 @@ public class DeliveryInfo {
     protected String shippingInstructions;
     protected DistanceCalculator distanceCalculator;
     protected ShippingStrategy shippingStrategy;
+
 
     public DeliveryInfo(String name, String phone, String province, String address, String shippingInstructions, DistanceCalculator distanceCalculator) {
         this.name = name;
