@@ -268,7 +268,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer, Cl
     }
 
     @Override
-    public void addToCart(Media media) {
+    public void addToCartClick(Media media) {
 
     }
 }
