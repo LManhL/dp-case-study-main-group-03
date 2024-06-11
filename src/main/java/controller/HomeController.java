@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.media.MediaDAO;
+import entity.media.Media;
 
 /**
  * This class controls the flow of events in homescreen
@@ -17,7 +18,8 @@ public class HomeController extends BaseController {
      * @return List[Media]
      * @throws SQLException
      */
-    public static List getAllMedia() throws SQLException{
+    public static List getAllMedia() throws SQLException, ClassNotFoundException {
         return new MediaDAO().getAllMedia();
     }
+
 }
