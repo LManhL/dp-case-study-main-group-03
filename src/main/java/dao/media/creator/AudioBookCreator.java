@@ -7,13 +7,14 @@ import entity.media.Media;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 public class AudioBookCreator extends MediaCreator{
     public AudioBookCreator() {
     }
     @Override
     public Media create(Media media) throws SQLException {
-        if (media.getType() != "AudioBook") {
+        if (!Objects.equals(media.getType(), "AudioBook")) {
             return null;
         }
         String sql = "SELECT * FROM " +

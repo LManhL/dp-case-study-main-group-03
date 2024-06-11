@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 public class CDCreator extends MediaCreator{
     public CDCreator() {
@@ -16,7 +17,7 @@ public class CDCreator extends MediaCreator{
 
     @Override
     public Media create(Media media) throws SQLException {
-        if (media.getType() != "CD") {
+        if (!Objects.equals(media.getType(), "CD")) {
             return null;
         }
         String sql = "SELECT * FROM " +

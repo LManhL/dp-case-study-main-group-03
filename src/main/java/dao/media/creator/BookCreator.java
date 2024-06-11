@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 public class BookCreator extends MediaCreator{
     public BookCreator() {
@@ -15,7 +16,7 @@ public class BookCreator extends MediaCreator{
 
     @Override
     public Media create(Media media) throws SQLException {
-        if (media.getType() != "Book") {
+        if (!Objects.equals(media.getType(), "Book")) {
             return null;
         }
         String sql = "SELECT * FROM " +
