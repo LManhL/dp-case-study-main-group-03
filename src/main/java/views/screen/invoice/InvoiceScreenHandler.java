@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.ViewsConfig;
+import views.screen.errorstrategy.ErrorMessage;
+import views.screen.errorstrategy.LoadResourceErrorMessage;
 import views.screen.payment.PaymentScreenHandler;
 import views.screen.popup.PopupScreen;
 
@@ -64,10 +66,10 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 			setupFunctionality();
 		} catch (IOException ex) {
 			LOGGER.info(ex.getMessage());
-			PopupScreen.error("Error when loading resources.");
+			showError(new LoadResourceErrorMessage());
 		} catch (Exception ex) {
 			LOGGER.info(ex.getMessage());
-			PopupScreen.error(ex.getMessage());
+			showError(new ErrorMessage(ex.getMessage()));
 		}
 	}
 

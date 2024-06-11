@@ -34,6 +34,8 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.ViewsConfig;
 import views.screen.cart.CartScreenHandler;
+import views.screen.errorstrategy.ErrorMessage;
+import views.screen.errorstrategy.LoadResourceErrorMessage;
 import views.screen.popup.PopupScreen;
 
 
@@ -78,10 +80,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer, Cl
             setupFunctionality();
         } catch (IOException ex) {
             LOGGER.info(ex.getMessage());
-            PopupScreen.error("Error when loading resources.");
+            showError(new LoadResourceErrorMessage());
         } catch (Exception ex) {
             LOGGER.info(ex.getMessage());
-            PopupScreen.error(ex.getMessage());
+            showError(new ErrorMessage(ex.getMessage()));
         }
     }
 

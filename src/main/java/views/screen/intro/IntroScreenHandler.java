@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
+import views.screen.errorstrategy.ErrorMessage;
+import views.screen.errorstrategy.LoadResourceErrorMessage;
 import views.screen.popup.PopupScreen;
 
 public class IntroScreenHandler extends BaseScreenHandler {
@@ -31,10 +33,10 @@ public class IntroScreenHandler extends BaseScreenHandler {
             setupFunctionality();
         } catch (IOException ex) {
             LOGGER.info(ex.getMessage());
-            PopupScreen.error("Error when loading resources.");
+            showError(new LoadResourceErrorMessage());
         } catch (Exception ex) {
             LOGGER.info(ex.getMessage());
-            PopupScreen.error(ex.getMessage());
+            showError(new ErrorMessage(ex.getMessage()));
         }
     }
 
