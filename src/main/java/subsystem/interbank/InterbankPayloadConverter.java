@@ -1,28 +1,32 @@
 package subsystem.interbank;
 
 import common.exception.*;
-import entity.payment.CreditCard;
-import entity.payment.PaymentTransaction;
+import entity.payment.*;
 import utils.MyMap;
+import utils.Utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * @author
  */
 public class InterbankPayloadConverter {
 
+    private static Logger LOGGER = Utils.getLogger(InterbankPayloadConverter.class.getName());
+
     /**
      * Convert from native entity into interbank required format
+     *
      * @param card
      * @param amount
      * @param contents
      * @return
      */
-    String convertToRequestPayload(CreditCard card, int amount, String contents) {
+    String convertToRequestPayload(Card card, int amount, String contents) {
         Map<String, Object> transaction = new MyMap();
 
         try {
@@ -45,6 +49,7 @@ public class InterbankPayloadConverter {
 
     /**
      * Read the response from interbank server
+     *
      * @param responseText
      * @return
      */
@@ -54,11 +59,12 @@ public class InterbankPayloadConverter {
         if (response == null)
             return null;
         MyMap transaction = (MyMap) response.get("transaction");
-        CreditCard card = new CreditCard(
-                (String) transaction.get("cardCode"),
-                (String) transaction.get("owner"),
-                (String) transaction.get("dateExpired"),
-                Integer.parseInt((String) transaction.get("cvvCode")));
+
+        String cardCreatorClassName = transaction.get("type") + "Creator";
+        CardCreator cardCreator = CardCreatorFactory.getCardCreator(cardCreatorClassName);
+        Card card = cardCreator.create(transaction);
+
+        LOGGER.info(card.getType());
 
         PaymentTransaction trans = new PaymentTransaction(
                 (String) response.get("errorCode"),
@@ -94,6 +100,7 @@ public class InterbankPayloadConverter {
 
     /**
      * Convert response from interbank server as JSON-formatted String into a proper Map
+     *
      * @param responseText
      * @return
      */
@@ -111,8 +118,8 @@ public class InterbankPayloadConverter {
     /**
      * Return a {@link String String} that represents the current time in the format of yyyy-MM-dd HH:mm:ss.
      *
-     * @author hieudm
      * @return the current time as {@link String String}.
+     * @author hieudm
      */
     private String getToday() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

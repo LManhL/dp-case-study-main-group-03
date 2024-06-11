@@ -16,6 +16,7 @@ public class Order {
     private int subtotal;
     private int tax;
     private List orderMediaList;
+    private OrderState state;
     protected DeliveryInfo deliveryInfo;
 
     public Order() {
@@ -35,7 +36,8 @@ public class Order {
         }
         this.orderMediaList = Collections.unmodifiableList(orderItems);
         this.subtotal = cart.calSubtotal();
-        this.tax = (int) (ViewsConfig.PERCENT_VAT/100) * subtotal;
+        this.tax = (int) (ViewsConfig.PERCENT_VAT / 100) * subtotal;
+        this.changeState(new DraftState(this));
     }
 
     public List getListOrderMedia() {
@@ -53,7 +55,7 @@ public class Order {
 
     public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
         this.deliveryInfo = deliveryInfo;
-        this.shippingFees = deliveryInfo.calculateShippingFee(this);
+        this.shippingFees = deliveryInfo.calculateShippingFee();
     }
 
     public List getOrderMediaList() {
@@ -70,5 +72,21 @@ public class Order {
 
     public int getTotal() {
         return this.subtotal + this.tax + this.shippingFees;
+    }
+
+    public void changeState(OrderState state) {
+        this.state = state;
+    }
+
+    public void confirm() {
+        state.confirm();
+    }
+
+    public void cancel() {
+        state.cancel();
+    }
+
+    public void refund() {
+        // Do refund
     }
 }

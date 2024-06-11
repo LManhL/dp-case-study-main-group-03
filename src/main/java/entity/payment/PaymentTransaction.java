@@ -2,13 +2,13 @@ package entity.payment;
 
 public class PaymentTransaction {
 	private String errorCode;
-	private CreditCard card;
+	private Card card;
 	private String transactionId;
 	private String transactionContent;
 	private int amount;
 	private String createdAt;
 	
-	public PaymentTransaction(String errorCode, CreditCard card, String transactionId, String transactionContent,
+	public PaymentTransaction(String errorCode, Card card, String transactionId, String transactionContent,
                               int amount, String createdAt) {
 		super();
 		this.errorCode = errorCode;
@@ -21,5 +21,9 @@ public class PaymentTransaction {
 	
 	public String getErrorCode() {
 		return errorCode;
+	}
+
+	public Card getCard() {
+		return card;
 	}
 }

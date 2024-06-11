@@ -4,9 +4,12 @@ import common.exception.InvalidDeliveryInfoException;
 import entity.cart.Cart;
 import entity.cart.CartItem;
 import entity.invoice.Invoice;
+import entity.order.DraftState;
 import entity.order.Order;
 import entity.order.OrderItem;
 import entity.shipping.DeliveryInfo;
+import entity.shipping.DistanceCalculatorAdapter;
+import entity.shipping.NewShippingStrategy;
 import entity.shipping.ShippingConfigs;
 import org.example.DistanceCalculator;
 
@@ -19,6 +22,7 @@ import java.util.regex.Pattern;
 
 /**
  * This class controls the flow of place order usecase in our AIMS project
+ *
  * @author nguyenlm
  */
 public class PlaceOrderController extends BaseController {
@@ -30,6 +34,7 @@ public class PlaceOrderController extends BaseController {
 
     /**
      * This method checks the availability of product when user click PlaceOrder button
+     *
      * @throws SQLException
      */
     public void placeOrder() throws SQLException {
@@ -38,15 +43,18 @@ public class PlaceOrderController extends BaseController {
 
     /**
      * This method creates the new Order based on the Cart
+     *
      * @return Order
      * @throws SQLException
      */
     public Order createOrder() throws SQLException {
-        return new Order(SessionInformation.cartInstance);
+        Order order = new Order(SessionInformation.cartInstance);
+        return order;
     }
 
     /**
      * This method creates the new Invoice based on order
+     *
      * @param order
      * @return Invoice
      */
@@ -56,6 +64,7 @@ public class PlaceOrderController extends BaseController {
 
     /**
      * This method takes responsibility for processing the shipping info from user
+     *
      * @param info
      * @throws InterruptedException
      * @throws IOException
@@ -71,23 +80,26 @@ public class PlaceOrderController extends BaseController {
                 String.valueOf(info.get("address")),
                 String.valueOf(info.get("instructions")),
                 new DistanceCalculator());
+        deliveryInfo.setShippingStrategy(new NewShippingStrategy(1.0, 2.0, 3.0));
+        deliveryInfo.setDistanceCalculator(new DistanceCalculatorAdapter());
         System.out.println(deliveryInfo.getProvince());
         return deliveryInfo;
     }
-    
+
     /**
-   * The method validates the info
-   * @param info
-   * @throws InterruptedException
-   * @throws IOException
-   */
+     * The method validates the info
+     *
+     * @param info
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public void validateDeliveryInfo(HashMap<String, String> info) throws InterruptedException, IOException, InvalidDeliveryInfoException {
         if (validatePhoneNumber(info.get("phone"))
-        || validateName(info.get("name"))
-        || validateAddress(info.get("address"))) return;
+                || validateName(info.get("name"))
+                || validateAddress(info.get("address"))) return;
         else throw new InvalidDeliveryInfoException();
     }
-    
+
     public boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 10) return false;
         if (!phoneNumber.startsWith("0")) return false;
@@ -98,7 +110,7 @@ public class PlaceOrderController extends BaseController {
         }
         return true;
     }
-    
+
     public boolean validateName(String name) {
         if (Objects.isNull(name)) return false;
         String patternString = "^[a-zA-Z\\s]*$";
@@ -106,7 +118,7 @@ public class PlaceOrderController extends BaseController {
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }
-    
+
     public boolean validateAddress(String address) {
         if (Objects.isNull(address)) return false;
         String patternString = "^[a-zA-Z\\s]*$";
