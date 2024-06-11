@@ -36,6 +36,7 @@ import views.screen.ViewsConfig;
 import views.screen.cart.CartScreenHandler;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.popup.PopupScreen;
 
 
@@ -96,6 +97,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Observer, Cl
     }
 
     protected void setupData(Object dto) throws Exception {
+        setErrorStrategy(new PopupErrorStrategy());
         setBController(new HomeController());
         this.authenticationController = new AuthenticationController();
         try{

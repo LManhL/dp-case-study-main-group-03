@@ -16,6 +16,7 @@ import views.screen.BaseScreenHandler;
 import views.screen.ViewsConfig;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.payment.PaymentScreenHandler;
 import views.screen.popup.PopupScreen;
 
@@ -74,6 +75,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 	}
 
 	protected void setupData(Object dto) throws Exception {
+		setErrorStrategy(new PopupErrorStrategy());
 		this.invoice = (Invoice) dto;
 		Order order = invoice.getOrder();
 		DeliveryInfo deliveryInfo = order.getDeliveryInfo();

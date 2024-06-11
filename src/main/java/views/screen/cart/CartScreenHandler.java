@@ -26,6 +26,7 @@ import views.screen.ViewsConfig;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.HeaderTextErrorStrategy;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.popup.PopupScreen;
 import views.screen.shipping.ShippingScreenHandler;
 
@@ -70,7 +71,7 @@ public class CartScreenHandler extends BaseScreenHandler {
     }
 
     protected void setupFunctionality() throws Exception {
-        setErrorStrategy(new HeaderTextErrorStrategy());
+        setErrorStrategy(new PopupErrorStrategy());
         // fix relative image path caused by fxml
         File file = new File(ViewsConfig.IMAGE_PATH + "/Logo.png");
         Image im = new Image(file.toURI().toString());

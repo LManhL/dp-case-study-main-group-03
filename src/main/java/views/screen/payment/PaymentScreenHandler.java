@@ -16,6 +16,7 @@ import views.screen.BaseScreenHandler;
 import views.screen.ViewsConfig;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.popup.PopupScreen;
 
 import java.io.IOException;
@@ -68,6 +69,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
     }
 
     protected void setupFunctionality() throws Exception {
+        setErrorStrategy(new PopupErrorStrategy());
         btnConfirmPayment.setOnMouseClicked(e -> {
             try {
                 confirmToPayOrder();

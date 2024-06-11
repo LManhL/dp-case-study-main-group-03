@@ -15,6 +15,7 @@ import utils.Utils;
 import views.screen.BaseScreenHandler;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.popup.PopupScreen;
 
 public class IntroScreenHandler extends BaseScreenHandler {
@@ -42,6 +43,7 @@ public class IntroScreenHandler extends BaseScreenHandler {
 
 
     protected void setupData(Object dto) throws Exception {
+        setErrorStrategy(new PopupErrorStrategy());
         return;
     }
 

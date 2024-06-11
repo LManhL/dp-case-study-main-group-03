@@ -20,6 +20,7 @@ import views.screen.BaseScreenHandler;
 import views.screen.ViewsConfig;
 import views.screen.errorstrategy.ErrorMessage;
 import views.screen.errorstrategy.LoadResourceErrorMessage;
+import views.screen.errorstrategy.PopupErrorStrategy;
 import views.screen.invoice.InvoiceScreenHandler;
 import views.screen.popup.PopupScreen;
 
@@ -75,6 +76,7 @@ public class ShippingScreenHandler extends BaseScreenHandler {
 	}
 
 	protected void setupFunctionality() throws Exception {
+		setErrorStrategy(new PopupErrorStrategy());
 		final BooleanProperty firstTime = new SimpleBooleanProperty(true); // Variable to store the focus on stage load
 		name.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
 			if(newValue && firstTime.get()){
